@@ -9,7 +9,7 @@ export default function Card({
 }) {
   const img = item.image === "" ? "https://placehold.co/600x400" : item.image;
   return (
-    <div key={item.id} className="col-3">
+    <div key={item.id} className="col-4">
       <div className="card p-3">
         <h5 className="fw-bold">ID Articolo: {item.id}</h5>
         <form onSubmit={(event) => handleEdit(event, item.id)}>
@@ -32,7 +32,7 @@ export default function Card({
           </p>
           <Checkbox
             text="Published"
-            formData={item.status}
+            formData={item.published}
             handleEditStatus={handleEditStatus}
             id={item.id}
           />

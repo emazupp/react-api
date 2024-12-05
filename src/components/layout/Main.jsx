@@ -8,15 +8,24 @@ const initialFormData = {
   image: "",
   author: "",
   category: "",
-  status: "draft",
+  published: false,
 };
 
 export default function Main() {
+  const fetchData = () => {
+    fetch("http://localhost:3000/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        setArticle(data);
+      });
+  };
+  useEffect(fetchData, []);
+
   const [formData, setFormData] = useState(initialFormData);
 
   const [editedTitle, setEditedTitle] = useState("");
   const [editStatus, setEditStatus] = useState("");
-  const [articles, setArticle] = useState();
+  const [articles, setArticle] = useState(articoli);
 
   const handleChangeForm = (e) => {
     const value =

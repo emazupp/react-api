@@ -4,6 +4,6 @@ export const articoli = [
     image: "",
     title: "React-form",
     author: "Emanuele Zuppardo",
-    status: "published",
+    published: true,
   },
 ];
