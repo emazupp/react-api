@@ -12,14 +12,36 @@ const initialFormData = {
 };
 
 export default function Main() {
-  const fetchData = () => {
+  // * INDEX
+  const fetchDataIndex = () => {
     fetch("http://localhost:3000/posts")
       .then((res) => res.json())
       .then((data) => {
         setArticle(data);
       });
   };
-  useEffect(fetchData, []);
+  useEffect(fetchDataIndex, []);
+
+  // * DESTROY
+  const fetchDataDelete = (id) => {
+    fetch(`http://localhost:3000/posts/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  // * STORE
+  const fetchDataStore = (newArticle) => {
+    fetch("http://localhost:3000/posts", {
+      method: "POST",
+      body: JSON.stringify(newArticle),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   const [formData, setFormData] = useState(initialFormData);
 
@@ -42,12 +64,14 @@ export default function Main() {
     e.preventDefault();
     formData.id = articles[articles.length - 1].id + 1;
     setArticle([...articles, { ...formData }]);
+    console.log(JSON.stringify(formData));
     setFormData(initialFormData);
   };
 
   /* DELETE */
   const handleDelete = (id) => {
     setArticle(articles.filter((item) => item.id != id));
+    fetchDataDelete(id);
   };
 
   /* EDIT TITLE */
@@ -93,13 +117,15 @@ export default function Main() {
       <div className="row mt-5 g-5">
         {articles.map((item) => {
           return (
-            <Card
-              item={item}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              setEditedTitle={setEditedTitle}
-              handleEditStatus={handleEditStatus}
-            />
+            <>
+              <Card
+                item={item}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                setEditedTitle={setEditedTitle}
+                handleEditStatus={handleEditStatus}
+              />
+            </>
           );
         })}
       </div>

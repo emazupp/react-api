@@ -7,7 +7,10 @@ export default function Card({
   setEditedTitle,
   handleEditStatus,
 }) {
-  const img = item.image === "" ? "https://placehold.co/600x400" : item.image;
+  const img =
+    item.image === ""
+      ? "https://placehold.co/600x400"
+      : "http://localhost:3000/" + item.image;
   return (
     <div key={item.id} className="col-4">
       <div className="card p-3">
