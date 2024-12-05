@@ -18,6 +18,7 @@ export default function Main() {
       .then((res) => res.json())
       .then((data) => {
         setArticle(data);
+        console.log(data);
       });
   };
   useEffect(fetchDataIndex, []);
@@ -35,6 +36,7 @@ export default function Main() {
   const fetchDataStore = (newArticle) => {
     fetch("http://localhost:3000/posts", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newArticle),
     })
       .then((res) => res.json())
@@ -62,9 +64,8 @@ export default function Main() {
   /* CREATE */
   const handleCreate = (e) => {
     e.preventDefault();
-    formData.id = articles[articles.length - 1].id + 1;
     setArticle([...articles, { ...formData }]);
-    console.log(JSON.stringify(formData));
+    fetchDataStore(formData);
     setFormData(initialFormData);
   };
 
